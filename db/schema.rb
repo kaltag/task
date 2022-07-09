@@ -10,7 +10,13 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2022_07_09_073653) do
+ActiveRecord::Schema.define(version: 2022_07_09_122221) do
+
+  create_table "category_services", force: :cascade do |t|
+    t.string "name"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+  end
 
   create_table "executors", force: :cascade do |t|
     t.string "name"
@@ -18,4 +24,30 @@ ActiveRecord::Schema.define(version: 2022_07_09_073653) do
     t.datetime "updated_at", precision: 6, null: false
   end
 
+  create_table "orders", force: :cascade do |t|
+    t.string "client_name"
+    t.datetime "order_date"
+    t.integer "executor_id", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["executor_id"], name: "index_orders_on_executor_id"
+  end
+
+  create_table "orders_services", id: false, force: :cascade do |t|
+    t.integer "order_id", null: false
+    t.integer "service_id", null: false
+    t.index ["order_id", "service_id"], name: "index_orders_services_on_order_id_and_service_id"
+    t.index ["service_id", "order_id"], name: "index_orders_services_on_service_id_and_order_id"
+  end
+
+  create_table "services", force: :cascade do |t|
+    t.string "title"
+    t.integer "category_service_id", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["category_service_id"], name: "index_services_on_category_service_id"
+  end
+
+  add_foreign_key "orders", "executors"
+  add_foreign_key "services", "category_services"
 end

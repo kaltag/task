@@ -1,0 +1,37 @@
+<div class="pb-28 max-w-7xl mx-auto sm:px-6 lg:px-8">
+  <div class="bg-white p-8 shadow-md rounded-md text-left">
+    <%= form_with(model: order) do |form| %>
+
+      <div class="mb-4">
+        <%= form.label :client_name, "Client name", class: 'inline-block mb-2 text-gray-700' %><span class="text-red-500">*</span><br>
+        <%= form.text_field :client_name, class: 'block w-full px-3 py-1.5 text-base font-normal text-gray-700 bg-white bg-clip-padding border border-solid border-gray-300 rounded transition ease-in-out m-0 focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none'%>
+      </div>
+
+      <div class="mb-4">
+        <%= form.label :order_date, "order date", order_date: 'inline-block mb-2 text-gray-700' %><span class="text-red-500">*</span><br>
+        <%= form.date_field :order_date, class: 'block w-full px-3 py-1.5 text-base font-normal text-gray-700 bg-white bg-clip-padding border border-solid border-gray-300 rounded transition ease-in-out m-0 focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none'%>
+      </div>
+
+      <div class="mb-4">
+        <%= form.label :executor_id, "executor", class: 'inline-block mb-2 text-gray-700' %><span class="text-red-500">*</span><br>
+        <%= form.collection_select :executor_id, Executor.order(:name), :id, :name, {}, class: 'block w-full px-3 py-1.5 text-base font-normal text-gray-700 bg-white bg-clip-padding border border-solid border-gray-300 rounded transition ease-in-out m-0 focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none' %>
+      </div>
+
+      <div class="inline-flex items-center justify-center -mx-2 mb-4">
+        <%= form.collection_check_boxes :service_ids, Service.all, :id, :title, {}, class: 'mx-2 '%>      
+      </div>
+
+
+      <div class="flex justify-end mt-5">
+        <% if current_page?(controller: :orders, action: :new) %>
+          <%= link_to 'Back', orders_path, style: 'color:black', class: 'inline-flex items-center justify-center px-4 py-2 text-base font-medium leading-6 text-gray-600 whitespace-no-wrap bg-white border border-gray-200 rounded-md shadow-sm hover:bg-gray-50 focus:outline-none focus:shadow-none' %>
+        <% elsif current_page?(controller: :orders, action: :edit) %>
+          <%= link_to 'Back', order_path, style: 'color:black', class: 'inline-flex items-center justify-center px-4 py-2 text-base font-medium leading-6 text-gray-600 whitespace-no-wrap bg-white border border-gray-200 rounded-md shadow-sm hover:bg-gray-50 focus:outline-none focus:shadow-none' %>
+        <% end %>        
+        <%= form.submit "Save", class: "ml-2 inline-flex items-center justify-center px-4 py-2 text-base font-medium leading-6 text-white whitespace-no-wrap bg-blue-600 border border-blue-700 rounded-md shadow-sm hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500" %>
+      </div>
+
+    <% end %>
+  </div>
+</div>
+
