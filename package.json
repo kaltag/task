@@ -13,6 +13,7 @@
   },
   "version": "0.1.0",
   "devDependencies": {
+    "install-peers": "^1.0.4",
     "webpack-dev-server": "^3"
   }
 }
