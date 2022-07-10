@@ -1,20 +1,17 @@
 <div class="py-5 text-gray-900">
   <%= link_to 'Edit this category', edit_category_service_path(@category_service), class: "mt-2 rounded-lg py-3 px-5 bg-gray-100 inline-block font-medium" %>
-    <div class="inline-block ml-2">
-      <%= button_to 'Destroy this category', category_service_path(@category_service), method: :delete, data: { confirm: 'Are you sure?' }, class: "mt-2 rounded-lg py-3 px-5 bg-gray-100 font-medium" %>
-    </div>
-    <%= link_to 'Back to category', category_services_path, class: "ml-2 rounded-lg py-3 px-5 bg-gray-100 inline-block font-medium" %>
+  <div class="inline-block ml-2">
+    <%= button_to 'Destroy this category', category_service_path(@category_service), method: :delete, data: { confirm: 'Are you sure?' }, class: "mt-2 rounded-lg py-3 px-5 bg-gray-100 font-medium" %>
+  </div>
+  <%= link_to 'Back to category', category_services_path, class: "ml-2 rounded-lg py-3 px-5 bg-gray-100 inline-block font-medium" %>
 </div>
-
 <div class="p-10 bg-white rounded-lg">
   <div class="gap-6 border-t border-gray-300">
-
     <div class="grid grid-cols-3 items-center border-b py-5 border-gray-300">
       <label for="name" class="block text-lg font-medium text-gray-900">name</label>
       <span class="col-span-2 bg-gray-50 border border-gray-300 text-gray-900 text-md rounded-lg block w-full p-3">
         <%= @category_service.name %>
       </span>
     </div>
-
   </div>
 </div>

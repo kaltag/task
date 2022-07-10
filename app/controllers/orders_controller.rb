@@ -2,12 +2,20 @@ class OrdersController < ApplicationController
   before_action :set_order, only: %i[ show edit update destroy ]
 
   def index
-    if params[:sort] != "service"
-      @orders = Order.order(params[:sort])
-    elsif params[:sort] == "service"
+    if params[:column] != "service"
+      @orders = Order.order("#{params[:column]} #{params[:direction]}")
+      @orders = @orders.where('client_name ilike ?', "%#{params[:client_name]}%") if params[:client_name].present?
+    elsif params[:column] == "service"
       @orders = Order.all.sort_by{|order| order.services.first.title}
     else
       @orders = Order.all
+    end
+
+    respond_to do |format|
+      format.html
+      format.xlsx {
+        response.headers['Content-Disposition'] = 'attachment; filename="test.xlsx"'
+      }
     end
   end
 

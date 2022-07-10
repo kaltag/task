@@ -3,19 +3,31 @@
     <div class="justify-between items-center flex py-5">
       <p class="text-xl text-gray-900">Orders</p>
       <%= link_to "New orders", new_order_path, class: 'ml-2 inline-flex items-center justify-center px-4 py-2 text-base font-medium leading-6 text-white whitespace-no-wrap bg-blue-600 border border-blue-700 rounded-md shadow-sm hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500' %>
+      <%= link_to 'Download as .xlsx', orders_path(format: :xlsx) %>
     </div>
-    <table class="table w-full table-fixed">
-      <thead>
-        <th class="text-gray-900 bg-gray-400"><%= link_to "Client name", :sort => "client_name"%> </th>
-        <th class="text-gray-900 bg-gray-400"><%= link_to "Order date", :sort => "order_date"%> </th>
-        <th class="text-gray-900 bg-gray-400"><%= link_to "Executor", :sort => "executor_id"%> </th>
-        <th class="text-gray-900 bg-gray-400"><%= link_to "Services", :sort => "service"%> </th>
-      </thead>
-    </table>
-
+    <div class="flex justify-end mb-1">
+      <%= form_with url: orders_path, method: :get, data: { controller: "search-form", search_form_target: "form", turbo_frame: "orders" } do |form| %>
+        <%= form.text_field :client_name,
+          placeholder: "Search by client name",
+          class: "border border-blue-500 rounded p-2",
+          autocomplete: "off",
+          data: { action: "input->search-form#search" }
+        %>
+      <% end %>
+    </div>
+    <%= turbo_frame_tag "orders", class: "shadow overflow-hidden rounded border-b border-gray-200" do %>
+      <table class="table w-full table-fixed">
+        <thead>
+          <th class="text-gray-900 bg-gray-400"><%= sort_link(column: "client_name", label: "Client") %></th>
+          <th class="text-gray-900 bg-gray-400"><%= sort_link(column: "order_date", label: "Order date") %></th>
+          <th class="text-gray-900 bg-gray-400"><%= sort_link(column: "executor_id", label: "Executor") %></th>
+          <th class="text-gray-900 bg-gray-400"><%= sort_link(column: "service", label: "Services") %></th>
+        </thead>
+      </table>
+    <% end %>
     <div id="orders">
       <% @orders.each do |order| %>
-        <%= link_to order, action: 'go' do %>        
+        <%= link_to order, action: 'go' do %>
           <div class="max-w-screen-xl mx-auto">
             <table class="table w-full table-fixed">
               <tbody>
@@ -32,7 +44,7 @@
               </tbody>
             </table>
           </div>
-        <% end %> 
+        <% end %>
       <% end %>
     </div>
   </div>
@@ -43,4 +55,3 @@
     <%= link_to "New orders", new_order_path, class: 'inline-flex items-center justify-center px-4 py-2 text-base font-medium leading-6 text-white whitespace-no-wrap bg-blue-600 border border-blue-700 rounded-md shadow-sm hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500' %>
   </div>
 <% end %>
-

@@ -18,20 +18,18 @@
       </div>
 
       <div class="inline-flex items-center justify-center -mx-2 mb-4">
-        <%= form.collection_check_boxes :service_ids, Service.all, :id, :title, {}, class: 'mx-2 '%>      
+        <%= form.collection_check_boxes :service_ids, Service.all, :id, :title, {}, class: 'mx-2 '%>
       </div>
-
 
       <div class="flex justify-end mt-5">
         <% if current_page?(controller: :orders, action: :new) %>
           <%= link_to 'Back', orders_path, style: 'color:black', class: 'inline-flex items-center justify-center px-4 py-2 text-base font-medium leading-6 text-gray-600 whitespace-no-wrap bg-white border border-gray-200 rounded-md shadow-sm hover:bg-gray-50 focus:outline-none focus:shadow-none' %>
         <% elsif current_page?(controller: :orders, action: :edit) %>
           <%= link_to 'Back', order_path, style: 'color:black', class: 'inline-flex items-center justify-center px-4 py-2 text-base font-medium leading-6 text-gray-600 whitespace-no-wrap bg-white border border-gray-200 rounded-md shadow-sm hover:bg-gray-50 focus:outline-none focus:shadow-none' %>
-        <% end %>        
+        <% end %>
         <%= form.submit "Save", class: "ml-2 inline-flex items-center justify-center px-4 py-2 text-base font-medium leading-6 text-white whitespace-no-wrap bg-blue-600 border border-blue-700 rounded-md shadow-sm hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500" %>
       </div>
 
     <% end %>
   </div>
 </div>
-

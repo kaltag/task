@@ -7,10 +7,8 @@
     <table class="table w-full table-fixed">
       <thead>
         <th class="text-gray-900 bg-gray-400">Name</th>
-     
       </thead>
     </table>
-
     <div id="executors">
       <% @executors.each do |executor| %>
         <%= link_to executor, action: 'go' do %>        
